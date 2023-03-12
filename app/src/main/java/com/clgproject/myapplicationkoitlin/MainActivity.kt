@@ -20,10 +20,13 @@ import android.Manifest
 import android.graphics.Bitmap
 import com.clgproject.myapplicationkoitlin.ml.BrainTumor10Epochs
 import org.tensorflow.lite.DataType
+import org.tensorflow.lite.Interpreter
 import org.tensorflow.lite.support.image.TensorImage
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
 import java.io.File
-import kotlin.coroutines.jvm.internal.CompletedContinuation.context
+import java.io.FileInputStream
+import java.nio.MappedByteBuffer
+import java.nio.channels.FileChannel
 
 
 class MainActivity : AppCompatActivity() {
@@ -86,7 +89,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun generateTextFromImage(bitmap: Bitmap?): String {
         // Load the model from the file
-        val model = BrainTumor10Epochs.newInstance(context)
+        val model = Interpreter(loadModelFile("BrainTumor10Epochs.tflite"))
 
         // Preprocess the input image
         val inputWidth = 224
@@ -105,6 +108,14 @@ class MainActivity : AppCompatActivity() {
 
         // Return the predicted label as text output
         return predictedLabel
+    }
+    private fun loadModelFile(modelPath: String): MappedByteBuffer {
+        val assetFileDescriptor = assets.openFd(modelPath)
+        val inputStream = FileInputStream(assetFileDescriptor.fileDescriptor)
+        val fileChannel = inputStream.channel
+        val startOffset = assetFileDescriptor.startOffset
+        val declaredLength = assetFileDescriptor.declaredLength
+        return fileChannel.map(FileChannel.MapMode.READ_ONLY, startOffset, declaredLength)
     }
 
 
