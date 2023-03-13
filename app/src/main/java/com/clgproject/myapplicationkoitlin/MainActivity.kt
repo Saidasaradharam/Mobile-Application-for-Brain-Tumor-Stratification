@@ -92,23 +92,23 @@ class MainActivity : AppCompatActivity() {
         val model = Interpreter(loadModelFile("BrainTumor10Epochs.tflite"))
 
         // Preprocess the input image
-        val inputWidth = 224
-        val inputHeight = 224
+        val inputWidth = 128
+        val inputHeight = 128
         val resizedBitmap = Bitmap.createScaledBitmap(bitmap!!, inputWidth, inputHeight, true)
         val inputTensor = TensorImage.fromBitmap(resizedBitmap)
-        inputTensor.buffer.rewind()
 
         // Run inference on the input image
-        val outputTensor = TensorBuffer.createFixedSize(intArrayOf(1, 2), DataType.FLOAT32)
+        val outputTensor = TensorBuffer.createFixedSize(intArrayOf(1, 1), DataType.FLOAT32)
         model.run(inputTensor.buffer, outputTensor.buffer)
 
         // Get the predicted label from the output tensor
         val scores = outputTensor.floatArray
-        val predictedLabel = if (scores[0] > scores[1]) "No" else "Yes"
+        val predictedLabel = if (scores[0] > 0.5f) "No" else "Yes"
 
         // Return the predicted label as text output
         return predictedLabel
     }
+
     private fun loadModelFile(modelPath: String): MappedByteBuffer {
         val assetFileDescriptor = assets.openFd(modelPath)
         val inputStream = FileInputStream(assetFileDescriptor.fileDescriptor)
