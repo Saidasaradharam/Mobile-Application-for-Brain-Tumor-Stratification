@@ -99,24 +99,27 @@ class UploadImage : AppCompatActivity() {
 
     private fun generateTextFromImage(bitmap: Bitmap?): String {
         // Load the model from the file
-        val model = Interpreter(loadModelFile("BrainTumor10Epochs.tflite"))
+        val model = Interpreter(loadModelFile("BrainTumorModelSaved.tflite"))
 
         // Preprocess the input image
-        val inputWidth = 128
-        val inputHeight = 128
+        val inputWidth = 64
+        val inputHeight = 64
         val resizedBitmap = Bitmap.createScaledBitmap(bitmap!!, inputWidth, inputHeight, true)
         val inputTensor = TensorImage.fromBitmap(resizedBitmap)
 
         // Run inference on the input image
-        val outputTensor = TensorBuffer.createFixedSize(intArrayOf(1, 1), DataType.FLOAT32)
+        val outputTensor = TensorBuffer.createFixedSize(intArrayOf(1, 4), DataType.FLOAT32)
         model.run(inputTensor.buffer, outputTensor.buffer)
 
         // Get the predicted label from the output tensor
         val scores = outputTensor.floatArray
-        val predictedLabel = if (scores[0] > 0.5f) "No" else "Yes"
+        val labelDict = arrayOf("Glioma Tumor", "No Tumor", "Meningioma Tumor", "Pituitary Tumor")
+        val predictedClassIndex = scores.indices.maxByOrNull { scores[it] } ?: -1
+        val predictedLabel = if (predictedClassIndex >= 0) labelDict[predictedClassIndex] else "Unknown"
 
         // Return the predicted label as text output
         return predictedLabel
+
     }
 
     private fun loadModelFile(modelPath: String): MappedByteBuffer {

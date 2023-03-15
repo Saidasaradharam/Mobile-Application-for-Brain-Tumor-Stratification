@@ -50,7 +50,7 @@ class VerifyActivity : AppCompatActivity() {
                     // The user is signed in successfully
                     // Move to the next activity or perform any other required action
                     Toast.makeText(this@VerifyActivity, "OTP Verified", Toast.LENGTH_LONG).show()
-                    val intent = Intent(this, UploadImage::class.java)
+                    val intent = Intent(this, HomeActivity::class.java)
                     startActivity(intent)
                     finish()
                 } else {
