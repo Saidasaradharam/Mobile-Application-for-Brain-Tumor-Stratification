@@ -1,29 +1,23 @@
 package com.clgproject.myapplicationkoitlin
 
+import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import android.Manifest
-import android.graphics.Bitmap
-import com.clgproject.myapplicationkoitlin.ml.BrainTumor10Epochs
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 import org.tensorflow.lite.DataType
 import org.tensorflow.lite.Interpreter
 import org.tensorflow.lite.support.image.TensorImage
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
-import java.io.File
 import java.io.FileInputStream
 import java.nio.MappedByteBuffer
 import java.nio.channels.FileChannel
@@ -33,7 +27,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var btnUpload: Button
     private lateinit var imgPreview: ImageView
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -49,8 +42,13 @@ class MainActivity : AppCompatActivity() {
                     arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), REQUEST_CODE_PERMISSION)
             } else {
                 // Launch image picker intent
-                val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-                startActivityForResult(intent, REQUEST_CODE_PICK_IMAGE)
+                val intent = Intent(Intent.ACTION_GET_CONTENT)
+                intent.type = "image/*"
+                val chooseIntent = Intent.createChooser(intent, "Choose an image")
+                val googleDriveIntent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
+                val chooserIntent = Intent.createChooser(googleDriveIntent, "Select from")
+                chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(chooseIntent))
+                startActivityForResult(chooserIntent, REQUEST_CODE_PICK_IMAGE)
             }
         }
     }
@@ -59,8 +57,13 @@ class MainActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_CODE_PERMISSION && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             // Permission granted, launch image picker intent
-            val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-            startActivityForResult(intent, REQUEST_CODE_PICK_IMAGE)
+            val intent = Intent(Intent.ACTION_GET_CONTENT)
+            intent.type = "image/*"
+            val chooseIntent = Intent.createChooser(intent, "Choose an image")
+            val googleDriveIntent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
+            val chooserIntent = Intent.createChooser(googleDriveIntent, "Select from")
+            chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(chooseIntent))
+            startActivityForResult(chooserIntent, REQUEST_CODE_PICK_IMAGE)
         }
     }
 
