@@ -1,11 +1,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/buttons_container">
 
         <TextView
             android:id="@+id/tv_info"
@@ -14,30 +14,36 @@
             android:padding="16dp"
             android:textColor="@android:color/black"
             android:textSize="18sp"
-            tools:text="Brain tumor information goes here." />
-
+            android:text="Brain tumor information goes here." />
 
     </ScrollView>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    <LinearLayout
+        android:id="@+id/buttons_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="bottom">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
 
         <Button
             android:id="@+id/cancer_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cancerous Tumor" />
+            android:text="Cancerous Tumor"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_gravity="bottom|left" />
+
 
         <Button
             android:id="@+id/non_cancer_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Non Canerous Tumor"
-            android:gravity="bottom"/>
+            android:text="Non Cancerous Tumor"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="bottom|right" />
 
     </LinearLayout>
+
 </RelativeLayout>
-
-

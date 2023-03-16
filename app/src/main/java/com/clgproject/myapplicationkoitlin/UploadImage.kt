@@ -18,6 +18,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import android.Manifest
 import android.graphics.Bitmap
+import android.widget.TextView
 import com.clgproject.myapplicationkoitlin.ml.BrainTumor10Epochs
 import org.tensorflow.lite.DataType
 import org.tensorflow.lite.Interpreter
@@ -33,6 +34,7 @@ class UploadImage : AppCompatActivity() {
 
     private lateinit var btnUpload: Button
     private lateinit var imgPreview: ImageView
+    private lateinit var outputText: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,8 +89,11 @@ class UploadImage : AppCompatActivity() {
 
             // Display the text output
             if (textOutput.isNotEmpty()) {
-                val snackbar = Snackbar.make(imgPreview, textOutput, Snackbar.LENGTH_LONG)
-                snackbar.show()
+                outputText = findViewById(R.id.output_text)
+                outputText.text = textOutput
+
+//                val snackbar = Snackbar.make(imgPreview, textOutput, Snackbar.LENGTH_LONG)
+//                snackbar.show()
             }
             // Display the image in the preview
             bitmap?.let {
@@ -102,8 +107,8 @@ class UploadImage : AppCompatActivity() {
         val model = Interpreter(loadModelFile("BrainTumorModelSaved.tflite"))
 
         // Preprocess the input image
-        val inputWidth = 64
-        val inputHeight = 64
+        val inputWidth = 128
+        val inputHeight = 128
         val resizedBitmap = Bitmap.createScaledBitmap(bitmap!!, inputWidth, inputHeight, true)
         val inputTensor = TensorImage.fromBitmap(resizedBitmap)
 

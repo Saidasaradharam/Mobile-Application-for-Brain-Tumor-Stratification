@@ -8,16 +8,34 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/non_cancer_info"
+            android:id="@+id/non_cancer_head"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="28sp"
+            android:gravity="center"
+            tools:text="Benign Tumor" />
+
+
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:textColor="@android:color/black"
-            android:textSize="18sp"
-            tools:text="Brain tumor information goes here." />
+            android:layout_margin="16dp"
+            android:background="@drawable/box"
+            android:gravity="center">
 
+            <TextView
+                android:id="@+id/non_cancer_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                tools:text="Brain tumor information goes here." />
+
+        </FrameLayout>
 
     </ScrollView>
+
 </RelativeLayout>
 
 
