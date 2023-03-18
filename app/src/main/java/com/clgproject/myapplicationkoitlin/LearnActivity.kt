@@ -1,4 +1,4 @@
-package com.clgproject.myapplicationkoitlin
+package com.clgproject.cerebroscan
 
 import android.annotation.SuppressLint
 import android.content.Intent

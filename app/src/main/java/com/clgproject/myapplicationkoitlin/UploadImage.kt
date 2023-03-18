@@ -1,4 +1,4 @@
-package com.clgproject.myapplicationkoitlin
+package com.clgproject.cerebroscan
 
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -19,7 +19,7 @@ import androidx.core.content.ContextCompat
 import android.Manifest
 import android.graphics.Bitmap
 import android.widget.TextView
-import com.clgproject.myapplicationkoitlin.ml.BrainTumor10Epochs
+import com.clgproject.cerebroscan.ml.BrainTumor10Epochs
 import org.tensorflow.lite.DataType
 import org.tensorflow.lite.Interpreter
 import org.tensorflow.lite.support.image.TensorImage
@@ -35,6 +35,8 @@ class UploadImage : AppCompatActivity() {
     private lateinit var btnUpload: Button
     private lateinit var imgPreview: ImageView
     private lateinit var outputText: TextView
+    private lateinit var learnMoreText: TextView
+    private lateinit var heading: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,9 +91,26 @@ class UploadImage : AppCompatActivity() {
 
             // Display the text output
             if (textOutput.isNotEmpty()) {
+                heading=findViewById(R.id.upload_head)
+                heading.text="Scan Successfully Uploaded!"
                 outputText = findViewById(R.id.output_text)
                 outputText.text = textOutput
-
+                learnMoreText = findViewById(R.id.learn_more_text)
+                if(textOutput!="No Tumor"){
+                    learnMoreText.setTextColor(ContextCompat.getColor(this, R.color.red))
+                    if(textOutput=="Glioma Tumor")
+                        learnMoreText.text = "Glioma is a type of brain tumor that can be cancerous or non-cancerous. Cancerous gliomas are referred to as malignant gliomas, and non-cancerous ones are called benign gliomas. Treatment for gliomas can involve surgery, radiation therapy, and/or chemotherapy, depending on the type, size, and location of the tumor, as well as the individual's overall health. However, the specific treatment plan can vary from person to person and should be determined in consultation with a medical professional.\n \n"
+                    else if(textOutput=="Meningioma Tumor")
+                        learnMoreText.text = "Meningioma is a type of brain tumor that arises from the meninges, which are the protective membranes surrounding the brain and spinal cord. Most meningiomas are non-cancerous (benign), but a small percentage can be cancerous (malignant). Treatment for meningioma depends on several factors, including the size and location of the tumor, as well as the individual's age and overall health. Treatment options may include observation (in cases where the tumor is small and not causing symptoms), surgery to remove the tumor, radiation therapy, and chemotherapy. The prognosis for meningioma is generally good, with a high rate of successful treatment and long-term survival for most patients.\n \n"
+                    else
+                        learnMoreText.text = "A pituitary tumor is a growth in the pituitary gland, which is a small gland located at the base of the brain. Pituitary tumors can be either cancerous (malignant) or non-cancerous (benign). Most pituitary tumors are non-cancerous and do not spread to other parts of the body.\n" +
+                                "\n" +
+                                "The treatment for a pituitary tumor depends on the type of tumor, its size, and whether it is causing symptoms. Treatment options include surgery, radiation therapy, medication, or a combination of these approaches. The goal of treatment is to shrink or remove the tumor and relieve any symptoms it may be causing. The treatment plan will be tailored to each individual's specific needs and circumstances, and will be determined by a team of healthcare professionals.\n \n"
+                }
+                else{
+                    learnMoreText.setTextColor(ContextCompat.getColor(this, R.color.green))
+                    learnMoreText.text="You are safe, To be sure consult a Doctor.\n \n"
+                }
 //                val snackbar = Snackbar.make(imgPreview, textOutput, Snackbar.LENGTH_LONG)
 //                snackbar.show()
             }

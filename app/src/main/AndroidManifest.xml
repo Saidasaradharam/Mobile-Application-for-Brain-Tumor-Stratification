@@ -11,7 +11,7 @@
         android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MyApplicationKoitlin"
+        android:theme="@style/Theme.CerebroScan"
         tools:targetApi="31">
         <activity android:name=".transitionActivity"
             android:exported="true">
@@ -31,7 +31,15 @@
             android:exported="false" />
         <activity
             android:name=".HomeActivity"
-            android:exported="false" />
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.CerebroScan.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".LearnActivity"
             android:exported="false" />
