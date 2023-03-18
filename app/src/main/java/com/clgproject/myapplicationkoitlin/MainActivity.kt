@@ -1,4 +1,4 @@
-package com.clgproject.myapplicationkoitlin
+package com.clgproject.cerebroscan
 
 import android.Manifest
 import android.content.Intent

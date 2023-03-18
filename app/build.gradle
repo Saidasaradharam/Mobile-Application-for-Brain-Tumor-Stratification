@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace 'com.clgproject.myapplicationkoitlin'
+    namespace 'com.clgproject.cerebroscan'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.clgproject.myapplicationkoitlin"
+        applicationId "com.clgproject.cerebroscan"
         minSdk 24
         targetSdk 33
         versionCode 1
