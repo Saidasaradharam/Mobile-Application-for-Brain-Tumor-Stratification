@@ -14,5 +14,7 @@
     <color name="text_color">#333333</color>
     <color name="border_color">#8D4293</color>
     <color name="transparent">#00FFFFFF</color>
+    <color name="red">#FF0000</color>
+    <color name="green">#08FF00</color>
 
 </resources>

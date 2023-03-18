@@ -2,17 +2,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/learn_head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:textSize="55sp"
+        android:textColor="@android:color/black"
+        android:text="Brain Tumor"
+        android:gravity="center"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/buttons_container">
+        android:layout_above="@+id/buttons_container"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp">
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_margin="16dp"
             android:background="@drawable/box"
-            android:layout_gravity="center_vertical"
             android:gravity="center">
 
             <TextView
@@ -20,9 +34,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
+                android:text="Brain tumor information goes here."
                 android:textColor="@android:color/black"
-                android:textSize="18sp"
-                android:text="Brain tumor information goes here." />
+                android:textSize="18sp" />
 
         </FrameLayout>
 
