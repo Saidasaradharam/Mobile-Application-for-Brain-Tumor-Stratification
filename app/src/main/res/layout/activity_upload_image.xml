@@ -12,7 +12,8 @@
         android:layout_marginBottom="16dp"
         android:text="Upload the MRI scan"
         android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="#333333"/>
 
     <ImageView
         android:id="@+id/img_preview"
@@ -20,23 +21,33 @@
         android:layout_height="291dp"
         android:layout_marginBottom="32dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/placeholder" />
+        android:src="@drawable/placeholder"
+        android:background="@drawable/image_border"/>
 
     <Button
         android:id="@+id/btn_upload"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Choose Image" />
+        android:text="Choose Image"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/button_background"/>
 
-    <TextView
-        android:id="@+id/output_text"
-        android:layout_width="181dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="Output Will be here"
-        android:textStyle="bold"
-        android:background="#EEEEEE"
-        android:padding="16dp"/>
+        android:gravity="center">
 
+        <TextView
+            android:id="@+id/output_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text=""
+            android:textStyle="bold"
+            android:textColor="#333333"
+            android:background="#FFFFFF"
+            android:padding="16dp"/>
+
+    </LinearLayout>
 
 </LinearLayout>

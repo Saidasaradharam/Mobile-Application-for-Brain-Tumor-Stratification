@@ -12,12 +12,14 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:background="@drawable/box"
+            android:layout_gravity="center_vertical"
             android:gravity="center">
 
             <TextView
                 android:id="@+id/cancer_head"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
                 android:textColor="@android:color/black"
                 android:textSize="28sp"
                 android:layout_gravity="center_horizontal"
@@ -27,10 +29,11 @@
                 android:id="@+id/cancer_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="45dp"
+                android:layout_marginTop="60dp"
                 android:textColor="@android:color/black"
                 android:textSize="18sp"
                 tools:text="Brain tumor information goes here." />
+
 
         </FrameLayout>
 
