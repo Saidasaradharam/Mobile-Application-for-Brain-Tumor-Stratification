@@ -21,6 +21,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".transitionActivity"
+            android:exported="false" />
+        <activity
             android:name=".NonCancerPage"
             android:exported="false" />
         <activity
