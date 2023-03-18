@@ -11,7 +11,7 @@
         android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.CerebroScan"
+        android:theme="@style/Theme.MyApplicationKoitlin"
         tools:targetApi="31">
         <activity android:name=".transitionActivity"
             android:exported="true">
@@ -20,9 +20,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity
-            android:name=".transitionActivity"
-            android:exported="false" />
         <activity
             android:name=".NonCancerPage"
             android:exported="false" />
@@ -33,7 +30,7 @@
             android:name=".HomeActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.CerebroScan.NoActionBar">
+            android:theme="@style/Theme.MyApplicationKoitlin.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

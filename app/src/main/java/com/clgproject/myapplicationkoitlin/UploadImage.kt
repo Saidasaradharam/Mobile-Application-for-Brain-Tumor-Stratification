@@ -1,4 +1,4 @@
-package com.clgproject.cerebroscan
+package com.clgproject.myapplicationkoitlin
 
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -19,7 +19,7 @@ import androidx.core.content.ContextCompat
 import android.Manifest
 import android.graphics.Bitmap
 import android.widget.TextView
-import com.clgproject.cerebroscan.ml.BrainTumor10Epochs
+import com.clgproject.myapplicationkoitlin.ml.BrainTumor10Epochs
 import org.tensorflow.lite.DataType
 import org.tensorflow.lite.Interpreter
 import org.tensorflow.lite.support.image.TensorImage
