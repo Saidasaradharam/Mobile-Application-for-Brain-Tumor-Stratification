@@ -13,7 +13,7 @@ class HomeActivity : AppCompatActivity() {
 
     private lateinit var learnButton: Button
     private lateinit var predictButton: Button
-    private lateinit var logOutButton: Button
+    private lateinit var logOutButton: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +24,8 @@ class HomeActivity : AppCompatActivity() {
         learnButton = findViewById(R.id.learn_button)
         predictButton = findViewById(R.id.predict_button)
         logOutButton = findViewById(R.id.logout_button)
+        logOutButton.bringToFront()
+
 
         learnButton.setOnClickListener {
             val intent = Intent(this, LearnActivity::class.java)
