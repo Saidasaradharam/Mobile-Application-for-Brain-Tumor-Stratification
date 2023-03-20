@@ -16,5 +16,6 @@
     <color name="transparent">#00FFFFFF</color>
     <color name="red">#FF0000</color>
     <color name="green">#08FF00</color>
+    <color name="toolbar_color">#EB39FF</color>
 
 </resources>

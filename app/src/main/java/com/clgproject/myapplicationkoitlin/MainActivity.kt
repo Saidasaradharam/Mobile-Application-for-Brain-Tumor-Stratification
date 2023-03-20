@@ -37,6 +37,12 @@ class MainActivity : AppCompatActivity() {
         FirebaseApp.initializeApp(this)
         auth = FirebaseAuth.getInstance()
 
+        val currentUser = auth.currentUser
+        if (currentUser != null) {
+            startActivity(Intent(this, HomeActivity::class.java))
+            finish()
+            return
+        }
 
         editTextPhoneNumber = findViewById(R.id.editTextPhoneNumber)
         buttonGenerateOTP = findViewById(R.id.buttonGenerateOTP)

@@ -11,7 +11,9 @@
         android:src="@drawable/logo_round"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginRight="100dp"
+        android:layout_marginTop="80dp"
         android:layout_marginBottom="450dp"
         android:layout_centerHorizontal="true"/>
 
@@ -40,6 +42,6 @@
         android:background="@drawable/edit_text_background"
         android:text="Generate OTP"
         android:textColor="#FFFFFF"
-        android:textSize="18sp" />
+        android:textSize="16sp" />
 
 </RelativeLayout>
