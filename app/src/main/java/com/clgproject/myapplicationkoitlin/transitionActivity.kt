@@ -7,7 +7,7 @@ import android.os.Handler
 
 class transitionActivity : AppCompatActivity() {
 
-    private val TIME_OUT:Long = 1000
+    private val TIME_OUT:Long = 2500
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

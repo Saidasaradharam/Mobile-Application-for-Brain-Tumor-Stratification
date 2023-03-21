@@ -13,7 +13,7 @@ class HomeActivity : AppCompatActivity() {
 
     private lateinit var learnButton: Button
     private lateinit var predictButton: Button
-    private lateinit var logOutButton: TextView
+    private lateinit var logOutButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
