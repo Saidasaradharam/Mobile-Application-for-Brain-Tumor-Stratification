@@ -1,0 +1,39 @@
+  {
+  "project_info": {
+    "project_number": "378431602475",
+    "project_id": "brain-tumor-stratification",
+    "storage_bucket": "brain-tumor-stratification.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:378431602475:android:c5e1548d17992be7244f6e",
+        "android_client_info": {
+          "package_name": "com.clgproject.myapplicationkoitlin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "378431602475-qhb6ue5tm5r9u6204e58a5gosepb8idc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeR7Gl8sALRLN0cYpZ5Qs8jpmquQNklyE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "378431602475-qhb6ue5tm5r9u6204e58a5gosepb8idc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
