@@ -51,22 +51,18 @@
 
         <Button
             android:id="@+id/cancer_button"
-            android:layout_width="wrap_content"
+            android:layout_width="207dp"
             android:layout_height="wrap_content"
-            android:text="Cancerous Tumor"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_gravity="bottom|left" />
+            android:text="Cancerous Tumor" />
 
 
         <Button
             android:id="@+id/non_cancer_button"
-            android:layout_width="wrap_content"
+            android:layout_width="203dp"
             android:layout_height="wrap_content"
-            android:text="Non Cancerous"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_gravity="bottom|right" />
+            android:text="Non Cancerous" />
 
     </LinearLayout>
 

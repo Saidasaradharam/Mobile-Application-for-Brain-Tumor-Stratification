@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp">
+    android:layout_height="match_parent">
 
 
 
     <ImageView
         android:id="@+id/heading"
-        android:layout_width="400dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginBottom="470dp"
         android:src="@drawable/heading_2"
         android:layout_centerHorizontal="true"/>
@@ -47,17 +46,15 @@
     <Button
         android:id="@+id/logout_button"
         android:layout_width="95dp"
-        android:layout_height="30dp"
-        android:text="Log Out"
-        android:textSize="10sp"
-        android:textColor="@color/button_text_color"
-        android:background="#D82101"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_alignParentEnd="true"
+        android:layout_height="32dp"
         android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginBottom="16dp"/>
+        android:background="#D82101"
+        android:text="Log Out"
+        android:textColor="@color/button_text_color"
+        android:textSize="10sp" />
 
 
 </RelativeLayout>
