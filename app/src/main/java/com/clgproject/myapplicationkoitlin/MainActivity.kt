@@ -1,12 +1,19 @@
 package com.clgproject.myapplicationkoitlin
 
-
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.provider.Settings
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.FirebaseApp
 import com.google.firebase.FirebaseException
@@ -16,7 +23,6 @@ import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
 import java.util.concurrent.TimeUnit
 
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var editTextPhoneNumber: EditText
@@ -25,22 +31,52 @@ class MainActivity : AppCompatActivity() {
     private lateinit var verificationId: String
     private lateinit var auth: FirebaseAuth
 
+    companion object {
+        private const val REQUEST_CODE_PERMISSION = 1
+        private const val REQUEST_CODE_MANAGE_STORAGE_PERMISSION = 2
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         FirebaseApp.initializeApp(this)
         auth = FirebaseAuth.getInstance()
 
+        editTextPhoneNumber = findViewById(R.id.editTextPhoneNumber)
+        buttonGenerateOTP = findViewById(R.id.buttonGenerateOTP)
+
+        checkAndRequestPermissions()
+    }
+
+    private fun checkAndRequestPermissions() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (!Environment.isExternalStorageManager()) {
+                val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
+                intent.data = Uri.parse("package:" + applicationContext.packageName)
+                startActivityForResult(intent, REQUEST_CODE_MANAGE_STORAGE_PERMISSION)
+            } else {
+                initialize()
+            }
+        } else {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                    REQUEST_CODE_PERMISSION
+                )
+            } else {
+                initialize()
+            }
+        }
+    }
+
+    private fun initialize() {
         val currentUser = auth.currentUser
         if (currentUser != null) {
             startActivity(Intent(this, HomeActivity::class.java))
             finish()
             return
         }
-
-        editTextPhoneNumber = findViewById(R.id.editTextPhoneNumber)
-        buttonGenerateOTP = findViewById(R.id.buttonGenerateOTP)
-
 
         buttonGenerateOTP.setOnClickListener {
             val phoneNumber = "+91${editTextPhoneNumber.text}"
@@ -51,8 +87,6 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 override fun onVerificationFailed(e: FirebaseException) {
-                    // This callback is invoked in an invalid request for verification is made,
-                    // for instance if the the phone number format is not valid.
                     Toast.makeText(this@MainActivity, getString(R.string.verification_failed, e.message), Toast.LENGTH_SHORT).show()
                 }
 
@@ -60,40 +94,28 @@ class MainActivity : AppCompatActivity() {
                     verificationId: String,
                     token: PhoneAuthProvider.ForceResendingToken
                 ) {
-                    // The SMS verification code has been sent to the provided phone number, we
-                    // now need to ask the user to enter the code and then construct a credential
-                    // by combining the code with a verification ID.
-                    this@MainActivity.verificationId = verificationId // Save verificationId as a member variable
+                    this@MainActivity.verificationId = verificationId
                     val intent = Intent(this@MainActivity, VerifyActivity::class.java)
                     intent.putExtra("verificationId", verificationId)
                     startActivity(intent)
                 }
             }
 
-            PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                phoneNumber,
-                60, // Timeout duration
-                TimeUnit.SECONDS,
-                this,
-                callbacks
-            )
+            startPhoneNumberVerification(phoneNumber, callbacks)
         }
-
-
-
     }
 
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this, OnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
                     val user = task.result?.user
                     if (user != null) {
                         Toast.makeText(this@MainActivity, getString(R.string.authentication_successful), Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(this, HomeActivity::class.java))
+                        finish()
                     }
                 } else {
-                    // Sign in failed, display a message and update the UI
                     Toast.makeText(this@MainActivity, getString(R.string.authentication_failed), Toast.LENGTH_SHORT).show()
                 }
             })
@@ -109,8 +131,27 @@ class MainActivity : AppCompatActivity() {
         PhoneAuthProvider.verifyPhoneNumber(options)
     }
 
-    companion object {
-        const val REQUEST_CODE_PERMISSION = 1
-        const val REQUEST_CODE_PICK_IMAGE = 2
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_CODE_PERMISSION) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                initialize()
+            } else {
+                Toast.makeText(this, "Permission is required to access storage.", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE_MANAGE_STORAGE_PERMISSION) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                if (Environment.isExternalStorageManager()) {
+                    initialize()
+                } else {
+                    Toast.makeText(this, "Manage External Storage permission is required.", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 }

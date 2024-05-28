@@ -4,7 +4,8 @@
     android:id="@+id/activity_transition"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".transitionActivity">
+    tools:context=".transitionActivity"
+    android:background="#A97FC8">
 
     <ImageView
         android:id="@+id/logo"
